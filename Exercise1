@@ -1,0 +1,48 @@
+import javax.swing.*;
+import java.awt.*; 
+
+public class test {
+    public static void main(String[] args) {
+
+
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        JLabel label = new JLabel("⚠️ ALERT!");
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.BOLD, 18));
+        panel.add(label);
+
+        JPanel messagePanel = new JPanel();
+        messagePanel.setBackground(Color.RED);
+        JLabel msg = new JLabel("Now I got a task for you!");
+        label.setFont(new Font("Arial", Font.BOLD, 18));
+        msg.setForeground(Color.WHITE);
+        messagePanel.add(msg);
+
+        
+        Object[] content = { panel, messagePanel };
+        JOptionPane.showMessageDialog(null, content, "Alert!", JOptionPane.PLAIN_MESSAGE);
+        String input2 = JOptionPane.showInputDialog("Please provide the seconds");
+        int num3 = Integer.parseInt(input2);
+
+        int hours = num3 / 3600;          
+        int minutes = (num3 % 3600) / 60; 
+        int seconds = num3 % 60;          
+
+        JOptionPane.showMessageDialog(null, 
+            "That is " + hours + " hours, " + minutes + " minutes, and " + seconds + " seconds.");
+
+        // Triangle Area Example
+        String sideA = JOptionPane.showInputDialog("Enter side a:");
+        String sideB = JOptionPane.showInputDialog("Enter side b:");
+        String sideC = JOptionPane.showInputDialog("Enter side c:");
+        double a = Double.parseDouble(sideA);
+        double b = Double.parseDouble(sideB);
+        double c = Double.parseDouble(sideC);
+
+        double s = (a + b + c) / 2;
+        double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+
+        JOptionPane.showMessageDialog(null, "The area of the triangle is " + String.format("%.2f", area));
+    }
+}
