@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        .display-section {
+            margin-top: 20px;
+            padding: 10px;
+            background: #eef2f7;
+            border-left: 4px solid #0056b3;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Student Information Header -->
+        <h2>Student Information BSIT 2C</h2>
+
+        <!-- Input Form -->
+        <div class="form-group">
+            <label for="studentNameInput">Enter Student Name:</label>
+            <input type="text" id="studentNameInput" placeholder="Type name here...">
+        </div>
+        
+        <button onclick="displayStudentName()">Submit</button>
+
+        <button
+        onclick="window.location.href='JavaScript2.html'">Next</button>
+
+        <!-- Display Name Section -->
+        <div class="display-section">
+            <strong>Displayed Name:</strong>
+            <p id="displayNameOutput">No name entered yet.</p>
+        </div>
+    </div>
+
+    <script>
+        function displayStudentName() {
+            // Get the value from the input field
+            const nameValue = document.getElementById('studentNameInput').value;
+            
+            // Get the display paragraph element
+            const outputElement = document.getElementById('displayNameOutput');
+            
+            // Update the display paragraph with the input value, or a default message if empty
+            if (nameValue.trim() !== "") {
+                outputElement.textContent = nameValue;
+            } else {
+                outputElement.textContent = "Please enter a valid name.";
+            }
+        }
+    </script>
+
+<hr>
+    <footer>
+        <b>&copy; IT PCC Student Information System</b>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

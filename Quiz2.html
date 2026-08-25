@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+
+</head>
+<body>
+
+<div >
+
+        <h2>Zai's Pizza Ordering System</h2>
+
+        <div class="form-group">
+<div style=margin-top:15px;>
+            <label for="NameInput">Enter Name:</label>
+            <input type="text" id="NameInput" placeholder="Type first name here...">
+<div style=margin-top:15px;>
+            <label for="AddressInput">Enter Address:</label>
+            <input type="text" id="AddressInput" placeholder="Type address here...">
+<div style=margin-top:20px;>
+            <label for="QuantityInput">Enter Quantity:</label>
+            <input type="number" id="QuantityInput" placeholder="Type Quantity here...">
+<div style=margin-top:20px;>
+
+        </div>
+      
+ <Dropdown>
+        <p>Select Your Flavor:
+            <select id="flavor">
+            <option value="">--Please Select</option>
+            <option value="Cheesy Overload">Pepperoni</option>
+            <option value="Cheesy Overload">Cheesy Overload</option>
+            <option value="BBQ Combo">BBQ Combo</option>
+            <option value="Hawaiian">Hawaiian</option>
+            <option value="Ham and Cheese">Ham and Cheese</option>
+            </select>
+        </p>
+    </Dropdown>
+
+ <Dropdown>
+        <p>Select Your Size:
+            <select id="size">
+            <option value="">--Please Select Size</option>
+            <option value="100">SMALL - 100</option>
+            <option value="150">MEDIUM - 150</option>
+            <option value="200">LARGE - 200</option>
+            <option value="300">EXTRA LARGE - 300</option>
+
+            </select>
+        </p>
+    </Dropdown>
+
+        <button onclick="displayOrder()">Place Order</button>
+
+        <button onclick="window.location.href='Student Information.html'">Next</button>
+
+        <div class="display-section">
+            <strong>Displayed Name:</strong>
+            <p id="displayNameOutput">No name entered yet.</p>
+        </div>
+    </div>
+ 
+    <script>
+        function displayOrder() {
+            var quantityInput = Number(document.getElementById("QuantityInput").value);
+            var Size = Number(document.getElementById("size").value);
+
+
+            var totalamount = (quantityInput * Size) ;
+            
+            const nameValue = document.getElementById('NameInput').value;
+            const AddValue = document.getElementById('AddressInput').value;
+            const QuantityValue = document.getElementById('QuantityInput').value;
+            const FlavorValue = document.getElementById('flavor').value;
+            const SizeValue = document.getElementById('size').value;
+
+
+            alertdocument.getElementById('displayNameOutput').innerHTML =  
+                "<b>Name: </b>" + nameValue + "<br>" +
+                "<b>Address: </b>" + AddValue + "<br>" +
+                "<b>Quantity: </b>" + QuantityValue + "<br>" +
+
+                "<b>Flavor: </b>" + FlavorValue + "<br>" +
+                "<b>Size: </b>" + SizeValue + "<br>" +
+                "<b>Total amount: </b>" + totalamount
+
+        }
+    </script>
+
+
+<hr>
+    <footer>
+
+        <b>&copy; Zai's Pizza Ordering System | Made by Zion Cananea 2C</b>
+
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+
+        }
+        h2 {
+            color: hsl(29, 100%, 49%);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: hsl(29, 100%, 49%);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: hsl(29, 100%, 49%);
+        }
+        .display-section {
+            margin-top: 20px;
+        }
+    </style>
+
+</body>
+</html>
