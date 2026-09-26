@@ -15,19 +15,24 @@
         .mainheader {
             font-family: 'Times New Roman', Times, serif;
             font-style: italic;
-            background-color:  greenyellow;
+            background-color:  rgb(136, 255, 0);
             border-radius: 12px;
             display: flex;
-            
             align-items: center;
             gap: 30px;
             padding: 30px;
             margin-bottom: 30px;
         }
-        
-        a {
+        .mainheader h1 {
+            white-space: nowrap;
+            display: flex;
+        }   
+        nav a {
             text-decoration: none;
             font-size: xx-large;
+            color:black;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
         hr {
@@ -37,7 +42,8 @@
         nav {
             
         display: flex;
-        gap: 50px;
+        gap: 80px;
+        align-items: center;
         }
         
         .home {
@@ -51,15 +57,13 @@
   
 
         .img-container {
-        width: 300px;
-        height: 200px;
-        overflow: hidden; 
-         border-radius: 8px;
-  
-        display: block;
-         margin-left: auto;
-         margin-right: auto;
-         height: auto;
+    width: 600px;        
+    max-width: 100%;      
+    height: 350px;     
+    overflow: hidden; 
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -84,8 +88,8 @@
         <hr>
         <nav>
         <a class ="hover-zoom" href="#">Home</a>
-        <a class ="hover-zoom"href="#">LogIn</a>
-        <a class ="hover-zoom"href="#">SignUp</a>
+        <a class="hover-zoom" href="#">Log In</a>
+        <a class="hover-zoom" href="#">Sign Up</a>
         <a class ="hover-zoom"href="#">About</a>
         </nav>
     </hr>
@@ -93,7 +97,7 @@
     </headz>
 
 <form class="home">
-Welcome to BSIT 2C!
+<h5>Welcome to BSIT 2C!</h5>
 
 <p>A dedicated cohort of sophomore IT students focusing on web development, database management systems, and advanced networking concepts.</p>
 <div class="img-container">
