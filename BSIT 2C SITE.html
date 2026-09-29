@@ -13,7 +13,7 @@
         }
 
         .mainheader {
-            font-family: 'Times New Roman', Times, serif;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-style: italic;
             background-image: linear-gradient(to right, rgb(173, 255, 47), rgb(89, 187, 86));
 
@@ -91,7 +91,7 @@
         <a class ="hover-zoom" href="#">Home</a>
         <a class="hover-zoom" href="#">Log In</a>
         <a class="hover-zoom" href="#">Sign Up</a>
-        <a class ="hover-zoom"href="#">About</a>
+        <a style="color: rgb(231, 253, 106);" class ="hover-zoom"href="#">About</a>
         </nav>
     </hr>
 
@@ -102,13 +102,96 @@
 
 <p>A dedicated cohort of sophomore IT students focusing on web development, database management systems, and advanced networking concepts.</p>
 <div class="img-container">
+
 <img src="https://www.digi.com/getattachment/blog/post/how-investing-in-green-technology-saves-businesses/vecteezy_light-bulb-on-green-abstract-technology-background-1280x720.jpg?lang=en-us&width=1280&height=720&ext=.jpg" 
 alt="IT" class="hover-zoom">
 
 </div>
-
+ㅤ
+<div class="img-container">
+<img src="https://storage.googleapis.com/school_sites/spud/images/facilities/BED0144D3A-1721691920.jpg" alt="ITS" class="hover-zoom">
+</div>
 </form>
+ㅤ
+<headz class="mainheader">
+
+    <div class="form-group">
+        <label for="fruitInput">Add a new name:</label>
+        <input type="text" id="fruitInput" placeholder="Enter a Name">
+        <div id="errorText"
+        class="error-text" style="color: red; display: none;">Please enter a fruit name.</div>
+        <hr><button onclick="additem()">Add Name</button>
+        <button onclick="deletefirst()">Delete First Name </button>
+        <button onclick="deletelast()">Delete Last Name</button>
+        <button onclick="deleteindex()">Delete Name by Index</button>
+    </hr>
+    </div>
+
+    <div class="display-section" id="output">
+        Names: <em>None added yet</em>
+    </div>
+
+    <script>
+        var fruits = [];
+        
+        function additem() {
+            var newItem = document.getElementById("fruitInput").value.trim();
+            if (newItem !== "") {
+                fruits.push(newItem);
+                document.getElementById("output").innerHTML = "<strong>Names:</strong> " + fruits.join(", ");
+                document.getElementById("fruitInput").value = "";
+                document.getElementById("errorText").style.display = "none";
+            } else {
+                document.getElementById("errorText").style.display = "block";
+            }
+        }
+
+        function deletefirst() {
+            if (fruits.length > 0) {
+                fruits.shift();
+                document.getElementById("output").innerHTML = "<strong>Names:</strong> " + (fruits.length > 0 ? fruits.join(", ") : "<em>None added yet</em>");
+            }
+            else {
+                alert("No fruits to delete.");
+            }
+            
+        }
+        function deletelast() {
+            if (fruits.length > 0) {
+                fruits.pop();
+                document.getElementById("output").innerHTML = "<strong>Fruits:</strong> " + (fruits.length > 0 ? fruits.join(", ") : "<em>None added yet</em>");
+            }
+            else {
+                alert("No fruits to delete.");
+            }
+        }
+        function deleteindex() {
+            var index = prompt("Enter the index of the fruit to delete (starting from 0):");
+            if (index !== null) {
+                index = parseInt(index);
+                if (!isNaN(index) && index >= 0 && index < fruits.length) {
+                    fruits.splice(index, 1);
+                    document.getElementById("output").innerHTML = "<strong>Fruits:</strong> " + (fruits.length > 0 ? fruits.join(", ") : "<em>None added yet</em>");
+                } else {
+                    alert("Invalid index. Please enter a valid number between 0 and " + (fruits.length - 1) + ".");
+                }
+            }
+        }
+    </script>
+
+</headz>
+
+
+
 
 </body>
+
+
+
+<script>
+
+
+
+</script>
 
 </html>
