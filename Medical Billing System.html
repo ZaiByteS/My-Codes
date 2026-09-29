@@ -5,83 +5,249 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medical Billing System</title>
   <style>
-    body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      background: #f0f4f8; 
-      margin: 0; 
-      padding: 30px 15px; 
-      color: #333; 
+    /* --- Intro Splash Screen Loader --- */
+    .intro-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
     }
+
+    .intro-loader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+      animation: pulseScale 1.5s infinite ease-in-out;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #0d9488;
+      border-radius: 50%;
+      margin: 0 auto 18px auto;
+      animation: spin 0.9s linear infinite;
+    }
+
+    .loader-content h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .loader-content p {
+      margin: 6px 0 0 0;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulseScale {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* --- Base Styles --- */
+    body { 
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Geneva, Verdana, sans-serif; 
+      background: #f1f5f9; 
+      margin: 0; 
+      padding: 40px 15px; 
+      color: #1e293b; 
+    }
+    
     .container { 
-      max-width: 850px; 
+      max-width: 900px; 
       margin: auto; 
       background: #ffffff; 
-      padding: 25px 30px; 
-      border-radius: 10px; 
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+      border-radius: 12px; 
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      overflow: hidden;
+      
+      /* Entrance Animation */
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
     }
-    h2, h3 { 
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- Header & Title Styling (No Logo) --- */
+    .header-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
+      color: #ffffff;
+      padding: 32px 35px;
+      position: relative;
+    }
+
+    .header-text h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .header-text p {
+      margin: 6px 0 0 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
+
+    /* --- Form Body --- */
+    .form-body {
+      padding: 30px 35px;
+    }
+
+    /* --- Introduction Box --- */
+    .intro-card {
+      background: #f0f9ff;
+      border-left: 4px solid #0284c7;
+      padding: 16px 20px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      font-size: 14px;
+      color: #0369a1;
+      line-height: 1.5;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s backwards;
+    }
+
+    .intro-card strong {
+      color: #0c4a6e;
+    }
+
+    h3.section-heading { 
       color: #1e3a8a; 
       border-bottom: 2px solid #e2e8f0; 
-      padding-bottom: 10px; 
-      margin-top: 0; 
+      padding-bottom: 8px; 
+      margin-top: 25px; 
+      margin-bottom: 18px;
+      font-size: 18px;
     }
-    .form-group { margin-bottom: 18px; }
+
+    .form-group { margin-bottom: 20px; }
+    
     label { 
       display: block; 
       font-weight: 600; 
       margin-bottom: 6px; 
-      color: #475569; 
+      color: #334155; 
+      font-size: 14px;
     }
+
     input[type="text"], input[type="number"], select { 
       width: 100%; 
-      padding: 10px 12px; 
+      padding: 10px 14px; 
       border: 1px solid #cbd5e1; 
       border-radius: 6px; 
       box-sizing: border-box; 
-      font-size: 15px;
+      font-size: 14px;
+      color: #0f172a;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
+
+    input[type="text"]:focus, input[type="number"]:focus, select:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Inline input rows */
     .input-inline {
       display: flex;
       gap: 10px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
     }
-    .input-inline input[type="text"] { flex: 2; }
-    .input-inline input[type="number"] { flex: 1; }
+
+    .proc-inputs input[type="text"] { flex: 3; min-width: 180px; }
+    .proc-inputs input[type="number"] { flex: 2; min-width: 120px; }
+
+    /* Medicine dosage inline grid */
+    .med-inputs input.med-name { flex: 3; min-width: 160px; }
+    .med-inputs input.med-dosage { flex: 1.5; min-width: 90px; }
+    .med-inputs select.med-unit { flex: 1.5; min-width: 80px; }
+    .med-inputs input.med-cost { flex: 2; min-width: 100px; }
+
     .btn-add {
       background: #0d9488;
       color: white;
       border: none;
-      padding: 0 16px;
+      padding: 0 18px;
       border-radius: 6px;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 14px;
       cursor: pointer;
       white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+      height: 40px;
     }
+
     .btn-add:hover { background: #0f766e; }
+    .btn-add:active { transform: scale(0.98); }
     
     .item-list {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       background: #f8fafc;
-      padding: 10px;
+      padding: 12px;
       border-radius: 6px;
       border: 1px solid #e2e8f0;
-      min-height: 42px;
+      min-height: 44px;
       align-items: center;
     }
+
     .tag-item {
       background: #e0f2fe;
       color: #0369a1;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 500;
       display: flex;
       align-items: center;
       gap: 8px;
       border: 1px solid #bae6fd;
+      animation: fadeInUp 0.3s ease-out;
     }
+
     .btn-remove {
       background: #ef4444;
       color: white;
@@ -89,56 +255,68 @@
       border-radius: 50%;
       width: 18px;
       height: 18px;
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 0;
+      transition: background 0.2s;
     }
+
     .btn-remove:hover { background: #dc2626; }
     .empty-msg { color: #94a3b8; font-style: italic; font-size: 13px; }
 
     .btn-group { 
       display: flex; 
       gap: 12px; 
-      margin-top: 25px; 
+      margin-top: 30px; 
     }
+
     button.btn-submit, button.btn-reset { 
       flex: 1; 
       padding: 12px; 
-      font-size: 16px; 
+      font-size: 15px; 
       border: none; 
       border-radius: 6px; 
       cursor: pointer; 
-      font-weight: bold; 
-      transition: background 0.2s; 
+      font-weight: 600; 
+      transition: background 0.2s, transform 0.1s; 
     }
+
     .btn-submit { background: #2563eb; color: white; }
     .btn-submit:hover { background: #1d4ed8; }
+    .btn-submit:active { transform: scale(0.99); }
+    
     .btn-reset { background: #64748b; color: white; }
     .btn-reset:hover { background: #475569; }
+    .btn-reset:active { transform: scale(0.99); }
     
     #billOutput { 
       margin-top: 30px; 
-      padding: 20px; 
+      padding: 22px; 
       background: #eff6ff; 
       border: 1px solid #bfdbfe; 
       border-radius: 8px; 
       display: none; 
+      animation: fadeInUp 0.4s ease-out;
     }
+
     .bill-row { 
       display: flex; 
       justify-content: space-between; 
       padding: 8px 0; 
       border-bottom: 1px dashed #cbd5e1; 
+      font-size: 14px;
     }
+
     .bill-sub-item {
-      font-size: 0.9em;
+      font-size: 0.88em;
       color: #475569;
       padding-left: 15px;
     }
+
     .bill-total { 
       font-weight: bold; 
       font-size: 1.15em; 
@@ -150,137 +328,195 @@
     }
 
     .history-section {
-      margin-top: 40px;
+      margin-top: 35px;
     }
+
     .history-table-wrapper {
       overflow-x: auto;
     }
+
     table.history-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      font-size: 14px;
+      font-size: 13px;
     }
+
     table.history-table th, table.history-table td {
       border: 1px solid #cbd5e1;
-      padding: 10px;
+      padding: 10px 12px;
       text-align: left;
     }
+
     table.history-table th {
       background: #f1f5f9;
       color: #334155;
+      font-weight: 600;
     }
+
     table.history-table tr:nth-child(even) {
       background: #f8fafc;
     }
+
     .btn-view-rec {
       background: #3b82f6;
       color: white;
       border: none;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
     }
+
     .btn-view-rec:hover { background: #2563eb; }
+
     .btn-del-rec {
       background: #ef4444;
       color: white;
       border: none;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
       margin-left: 4px;
     }
+
     .btn-del-rec:hover { background: #dc2626; }
   </style>
 </head>
 <body>
 
+<!-- Animated Splash Loader -->
+<div id="introLoader" class="intro-loader">
+  <div class="loader-content">
+    <div class="spinner"></div>
+    <h2>Medical Billing System</h2>
+    <p>Initializing portal environment...</p>
+  </div>
+</div>
+
 <div class="container">
-  <h2>Medical Billing System (PHP)</h2>
-  
-  <form id="billingForm">
-    <div class="form-group">
-      <label for="patientName">Patient Name</label>
-      <input type="text" id="patientName" placeholder="e.g., Juan Dela Cruz" required>
+  <!-- Header Banner (Logo Removed) -->
+  <div class="header-banner">
+    <div class="header-text">
+      <h1>Patient Billing & Invoicing System</h1>
+      <p>Hospital Management & Comprehensive Financial Records</p>
+    </div>
+    <span class="header-badge">Dosage & Unit Tracking Enabled</span>
+  </div>
+
+  <div class="form-body">
+    <!-- Introduction Section -->
+    <div class="intro-card">
+      <strong>Welcome to the Medical Billing System.</strong> This portal streamlines patient intake billing by calculating daily room accommodation fees, itemized medical procedures, and dosage-based medications (supporting solid dosages like <code>mg</code>/<code>g</code> and liquid volumes like <code>ml</code>).
     </div>
 
-    <div class="form-group">
-      <label for="consultationFee">Consultation Fee (₱)</label>
-      <input type="number" id="consultationFee" min="0" value="500" required>
-    </div>
+    <form id="billingForm">
+      <h3 class="section-heading">Patient & Stay Information</h3>
 
-    <div class="form-group">
-      <label for="roomType">Room Accommodation Type</label>
-      <select id="roomType" required></select>
-    </div>
-
-    <div class="form-group">
-      <label for="numDays">Number of Days Stayed</label>
-      <input type="number" id="numDays" min="1" value="1" required>
-    </div>
-
-    <div class="form-group">
-      <label>Add Medical Procedures Performed</label>
-      <div class="input-inline">
-        <input type="text" id="procName" placeholder="Procedure Name (e.g., X-Ray)">
-        <input type="number" id="procCost" placeholder="Cost (₱)" min="0">
-        <button type="button" class="btn-add" onclick="addProcedure()">+ Add Procedure</button>
+      <div class="form-group">
+        <label for="patientName">Patient Full Name</label>
+        <input type="text" id="patientName" placeholder="e.g., Juan Dela Cruz" required>
       </div>
-      <div id="proceduresListDisplay" class="item-list">
-        <span class="empty-msg">No procedures added yet.</span>
+
+      <div class="form-group">
+        <label for="consultationFee">Consultation Fee (₱)</label>
+        <input type="number" id="consultationFee" min="0" value="500" required>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Add Medicines Administered</label>
-      <div class="input-inline">
-        <input type="text" id="medName" placeholder="Medicine Name (e.g., Paracetamol 500mg)">
-        <input type="number" id="medCost" placeholder="Cost (₱)" min="0">
-        <button type="button" class="btn-add" onclick="addMedicine()">+ Add Medicine</button>
+      <div class="form-group">
+        <label for="roomType">Room Accommodation Tier</label>
+        <select id="roomType" required></select>
       </div>
-      <div id="medicinesListDisplay" class="item-list">
-        <span class="empty-msg">No medicines added yet.</span>
+
+      <div class="form-group">
+        <label for="numDays">Number of Days Stayed</label>
+        <input type="number" id="numDays" min="1" value="1" required>
       </div>
-    </div>
 
-    <div class="btn-group">
-      <button type="submit" class="btn-submit">Calculate & Save Record</button>
-      <button type="reset" class="btn-reset" onclick="resetAll()">Reset Form</button>
-    </div>
-  </form>
+      <h3 class="section-heading">Procedures & Medications</h3>
 
-  <div id="billOutput"></div>
+      <!-- Procedures -->
+      <div class="form-group">
+        <label>Medical Procedures Performed</label>
+        <div class="input-inline proc-inputs">
+          <input type="text" id="procName" placeholder="Procedure Name (e.g., X-Ray / ECG)">
+          <input type="number" id="procCost" placeholder="Cost (₱)" min="0">
+          <button type="button" class="btn-add" onclick="addProcedure()">+ Add Procedure</button>
+        </div>
+        <div id="proceduresListDisplay" class="item-list">
+          <span class="empty-msg">No procedures added yet.</span>
+        </div>
+      </div>
 
-  <div class="history-section">
-    <h3>Patient Billing Records History</h3>
-    <div class="history-table-wrapper">
-      <table class="history-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Date & Time</th>
-            <th>Patient Name</th>
-            <th>Room & Days</th>
-            <th>Procedures</th>
-            <th>Medicines</th>
-            <th>Grand Total</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="historyTableBody">
-          <tr>
-            <td colspan="8" style="text-align: center; color: #94a3b8; font-style: italic;">No records in history array yet.</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Medicines with separate dosage and mg/ml unit selection -->
+      <div class="form-group">
+        <label>Medicines Administered (with Dosage/Volume)</label>
+        <div class="input-inline med-inputs">
+          <input type="text" id="medName" class="med-name" placeholder="Medicine Name (e.g., Paracetamol)">
+          <input type="number" id="medDosage" class="med-dosage" placeholder="Dosage (e.g. 500)" min="0" step="any">
+          <select id="medUnit" class="med-unit">
+            <option value="mg">mg</option>
+            <option value="ml">ml</option>
+            <option value="g">g</option>
+            <option value="mcg">mcg</option>
+            <option value="tabs">tablets</option>
+          </select>
+          <input type="number" id="medCost" class="med-cost" placeholder="Cost (₱)" min="0">
+          <button type="button" class="btn-add" onclick="addMedicine()">+ Add Medicine</button>
+        </div>
+        <div id="medicinesListDisplay" class="item-list">
+          <span class="empty-msg">No medicines added yet.</span>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button type="submit" class="btn-submit">Calculate & Save Billing Record</button>
+        <button type="reset" class="btn-reset" onclick="resetAll()">Reset Form</button>
+      </div>
+    </form>
+
+    <div id="billOutput"></div>
+
+    <div class="history-section">
+      <h3 class="section-heading">Patient Billing History</h3>
+      <div class="history-table-wrapper">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date & Time</th>
+              <th>Patient Name</th>
+              <th>Room & Days</th>
+              <th>Procedures</th>
+              <th>Medicines</th>
+              <th>Grand Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <tr>
+              <td colspan="8" style="text-align: center; color: #94a3b8; font-style: italic;">No records in history array yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
+  // Intro Loader Dismissal
+  window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      const loader = document.getElementById("introLoader");
+      if (loader) {
+        loader.classList.add("fade-out");
+        setTimeout(() => loader.remove(), 600);
+      }
+    }, 1000);
+  });
+
   const roomTypes = [
     { name: "General Ward", rate: 1000 },
     { name: "Semi-Private Room", rate: 2500 },
@@ -341,17 +577,23 @@
 
   function addMedicine() {
     const nameInput = document.getElementById("medName");
+    const dosageInput = document.getElementById("medDosage");
+    const unitSelect = document.getElementById("medUnit");
     const costInput = document.getElementById("medCost");
+
     const name = nameInput.value.trim();
+    const dosage = parseFloat(dosageInput.value);
+    const unit = unitSelect.value;
     const cost = parseFloat(costInput.value);
 
-    if (!name || isNaN(cost) || cost < 0) {
-      alert("Please enter a valid medicine name and cost in Philippine Peso.");
+    if (!name || isNaN(dosage) || dosage <= 0 || isNaN(cost) || cost < 0) {
+      alert("Please enter a valid medicine name, dosage/volume amount, unit (mg or ml), and cost in Philippine Peso.");
       return;
     }
 
-    dynamicMedicines.push({ name: name, cost: cost });
+    dynamicMedicines.push({ name: name, dosage: dosage, unit: unit, cost: cost });
     nameInput.value = "";
+    dosageInput.value = "";
     costInput.value = "";
     renderMedicines();
   }
@@ -371,7 +613,7 @@
     dynamicMedicines.forEach((m, index) => {
       html += `
         <div class="tag-item">
-          <span>${m.name} (₱${m.cost.toFixed(2)})</span>
+          <span><strong>${m.name}</strong> (${m.dosage}${m.unit}) - ₱${m.cost.toFixed(2)}</span>
           <button type="button" class="btn-remove" onclick="removeMedicine(${index})">&times;</button>
         </div>`;
     });
@@ -418,7 +660,7 @@
     displayInvoiceSummary(record);
     
     let alertMsg = `====================================\n`;
-    alertMsg += `   HISTORICAL RECORD #${index + 1} SUMMARY   \n`;
+    alertMsg += `    HISTORICAL RECORD #${index + 1} SUMMARY    \n`;
     alertMsg += `====================================\n`;
     alertMsg += `Date: ${record.dateTime}\n`;
     alertMsg += `Patient Name: ${record.patientName}\n\n`;
@@ -428,20 +670,20 @@
     alertMsg += `PROCEDURES PERFORMED (${record.dynamicProcedures.length}):\n`;
     if (record.dynamicProcedures.length > 0) {
       record.dynamicProcedures.forEach((p, idx) => {
-        alertMsg += ` ${idx + 1}. ${p.name}: ₱${p.cost.toFixed(2)}\n`;
+        alertMsg += `  ${idx + 1}. ${p.name}: ₱${p.cost.toFixed(2)}\n`;
       });
     } else {
-      alertMsg += ` None\n`;
+      alertMsg += `  None\n`;
     }
     alertMsg += `Procedures Subtotal: ₱${record.proceduresTotal.toFixed(2)}\n\n`;
 
     alertMsg += `MEDICINES ADMINISTERED (${record.dynamicMedicines.length}):\n`;
     if (record.dynamicMedicines.length > 0) {
       record.dynamicMedicines.forEach((m, idx) => {
-        alertMsg += ` ${idx + 1}. ${m.name}: ₱${m.cost.toFixed(2)}\n`;
+        alertMsg += `  ${idx + 1}. ${m.name} (${m.dosage}${m.unit}): ₱${m.cost.toFixed(2)}\n`;
       });
     } else {
-      alertMsg += ` None\n`;
+      alertMsg += `  None\n`;
     }
     alertMsg += `Medicines Subtotal: ₱${record.medicinesTotal.toFixed(2)}\n`;
 
@@ -496,7 +738,7 @@
     record.dynamicMedicines.forEach(m => {
       html += `
         <div class="bill-row bill-sub-item">
-          <span>• ${m.name}</span>
+          <span>• ${m.name} (${m.dosage} ${m.unit})</span>
           <span>₱${m.cost.toFixed(2)}</span>
         </div>`;
     });
