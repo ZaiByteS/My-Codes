@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Billing System</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: #f0f4f8; 
+      margin: 0; 
+      padding: 30px 15px; 
+      color: #333; 
+    }
+    .container { 
+      max-width: 850px; 
+      margin: auto; 
+      background: #ffffff; 
+      padding: 25px 30px; 
+      border-radius: 10px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+    }
+    h2, h3 { 
+      color: #1e3a8a; 
+      border-bottom: 2px solid #e2e8f0; 
+      padding-bottom: 10px; 
+      margin-top: 0; 
+    }
+    .form-group { margin-bottom: 18px; }
+    label { 
+      display: block; 
+      font-weight: 600; 
+      margin-bottom: 6px; 
+      color: #475569; 
+    }
+    input[type="text"], input[type="number"], select { 
+      width: 100%; 
+      padding: 10px 12px; 
+      border: 1px solid #cbd5e1; 
+      border-radius: 6px; 
+      box-sizing: border-box; 
+      font-size: 15px;
+    }
+    .input-inline {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .input-inline input[type="text"] { flex: 2; }
+    .input-inline input[type="number"] { flex: 1; }
+    .btn-add {
+      background: #0d9488;
+      color: white;
+      border: none;
+      padding: 0 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-add:hover { background: #0f766e; }
+    
+    .item-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      min-height: 42px;
+      align-items: center;
+    }
+    .tag-item {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #bae6fd;
+    }
+    .btn-remove {
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .btn-remove:hover { background: #dc2626; }
+    .empty-msg { color: #94a3b8; font-style: italic; font-size: 13px; }
+
+    .btn-group { 
+      display: flex; 
+      gap: 12px; 
+      margin-top: 25px; 
+    }
+    button.btn-submit, button.btn-reset { 
+      flex: 1; 
+      padding: 12px; 
+      font-size: 16px; 
+      border: none; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      font-weight: bold; 
+      transition: background 0.2s; 
+    }
+    .btn-submit { background: #2563eb; color: white; }
+    .btn-submit:hover { background: #1d4ed8; }
+    .btn-reset { background: #64748b; color: white; }
+    .btn-reset:hover { background: #475569; }
+    
+    #billOutput { 
+      margin-top: 30px; 
+      padding: 20px; 
+      background: #eff6ff; 
+      border: 1px solid #bfdbfe; 
+      border-radius: 8px; 
+      display: none; 
+    }
+    .bill-row { 
+      display: flex; 
+      justify-content: space-between; 
+      padding: 8px 0; 
+      border-bottom: 1px dashed #cbd5e1; 
+    }
+    .bill-sub-item {
+      font-size: 0.9em;
+      color: #475569;
+      padding-left: 15px;
+    }
+    .bill-total { 
+      font-weight: bold; 
+      font-size: 1.15em; 
+      color: #0f172a; 
+      border-bottom: none; 
+      border-top: 2px solid #1e40af; 
+      padding-top: 12px; 
+      margin-top: 8px; 
+    }
+
+    .history-section {
+      margin-top: 40px;
+    }
+    .history-table-wrapper {
+      overflow-x: auto;
+    }
+    table.history-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    table.history-table th, table.history-table td {
+      border: 1px solid #cbd5e1;
+      padding: 10px;
+      text-align: left;
+    }
+    table.history-table th {
+      background: #f1f5f9;
+      color: #334155;
+    }
+    table.history-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .btn-view-rec {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .btn-view-rec:hover { background: #2563eb; }
+    .btn-del-rec {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+    .btn-del-rec:hover { background: #dc2626; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Medical Billing System (PHP)</h2>
+  
+  <form id="billingForm">
+    <div class="form-group">
+      <label for="patientName">Patient Name</label>
+      <input type="text" id="patientName" placeholder="e.g., Juan Dela Cruz" required>
+    </div>
+
+    <div class="form-group">
+      <label for="consultationFee">Consultation Fee (₱)</label>
+      <input type="number" id="consultationFee" min="0" value="500" required>
+    </div>
+
+    <div class="form-group">
+      <label for="roomType">Room Accommodation Type</label>
+      <select id="roomType" required></select>
+    </div>
+
+    <div class="form-group">
+      <label for="numDays">Number of Days Stayed</label>
+      <input type="number" id="numDays" min="1" value="1" required>
+    </div>
+
+    <div class="form-group">
+      <label>Add Medical Procedures Performed</label>
+      <div class="input-inline">
+        <input type="text" id="procName" placeholder="Procedure Name (e.g., X-Ray)">
+        <input type="number" id="procCost" placeholder="Cost (₱)" min="0">
+        <button type="button" class="btn-add" onclick="addProcedure()">+ Add Procedure</button>
+      </div>
+      <div id="proceduresListDisplay" class="item-list">
+        <span class="empty-msg">No procedures added yet.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Add Medicines Administered</label>
+      <div class="input-inline">
+        <input type="text" id="medName" placeholder="Medicine Name (e.g., Paracetamol 500mg)">
+        <input type="number" id="medCost" placeholder="Cost (₱)" min="0">
+        <button type="button" class="btn-add" onclick="addMedicine()">+ Add Medicine</button>
+      </div>
+      <div id="medicinesListDisplay" class="item-list">
+        <span class="empty-msg">No medicines added yet.</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" class="btn-submit">Calculate & Save Record</button>
+      <button type="reset" class="btn-reset" onclick="resetAll()">Reset Form</button>
+    </div>
+  </form>
+
+  <div id="billOutput"></div>
+
+  <div class="history-section">
+    <h3>Patient Billing Records History</h3>
+    <div class="history-table-wrapper">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date & Time</th>
+            <th>Patient Name</th>
+            <th>Room & Days</th>
+            <th>Procedures</th>
+            <th>Medicines</th>
+            <th>Grand Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="historyTableBody">
+          <tr>
+            <td colspan="8" style="text-align: center; color: #94a3b8; font-style: italic;">No records in history array yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  const roomTypes = [
+    { name: "General Ward", rate: 1000 },
+    { name: "Semi-Private Room", rate: 2500 },
+    { name: "Private Room", rate: 5000 },
+    { name: "ICU (Intensive Care Unit)", rate: 15000 }
+  ];
+
+  let dynamicProcedures = [];
+  let dynamicMedicines = [];
+  const patientRecords = [];
+
+  const roomSelect = document.getElementById("roomType");
+  roomTypes.forEach((room, index) => {
+    const opt = document.createElement("option");
+    opt.value = index;
+    opt.textContent = `${room.name} (₱${room.rate.toLocaleString()}/day)`;
+    roomSelect.appendChild(opt);
+  });
+
+  function addProcedure() {
+    const nameInput = document.getElementById("procName");
+    const costInput = document.getElementById("procCost");
+    const name = nameInput.value.trim();
+    const cost = parseFloat(costInput.value);
+
+    if (!name || isNaN(cost) || cost < 0) {
+      alert("Please enter a valid procedure name and cost in Philippine Peso.");
+      return;
+    }
+
+    dynamicProcedures.push({ name: name, cost: cost });
+    nameInput.value = "";
+    costInput.value = "";
+    renderProcedures();
+  }
+
+  function removeProcedure(index) {
+    dynamicProcedures.splice(index, 1);
+    renderProcedures();
+  }
+
+  function renderProcedures() {
+    const container = document.getElementById("proceduresListDisplay");
+    if (dynamicProcedures.length === 0) {
+      container.innerHTML = '<span class="empty-msg">No procedures added yet.</span>';
+      return;
+    }
+    let html = "";
+    dynamicProcedures.forEach((p, index) => {
+      html += `
+        <div class="tag-item">
+          <span>${p.name} (₱${p.cost.toFixed(2)})</span>
+          <button type="button" class="btn-remove" onclick="removeProcedure(${index})">&times;</button>
+        </div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  function addMedicine() {
+    const nameInput = document.getElementById("medName");
+    const costInput = document.getElementById("medCost");
+    const name = nameInput.value.trim();
+    const cost = parseFloat(costInput.value);
+
+    if (!name || isNaN(cost) || cost < 0) {
+      alert("Please enter a valid medicine name and cost in Philippine Peso.");
+      return;
+    }
+
+    dynamicMedicines.push({ name: name, cost: cost });
+    nameInput.value = "";
+    costInput.value = "";
+    renderMedicines();
+  }
+
+  function removeMedicine(index) {
+    dynamicMedicines.splice(index, 1);
+    renderMedicines();
+  }
+
+  function renderMedicines() {
+    const container = document.getElementById("medicinesListDisplay");
+    if (dynamicMedicines.length === 0) {
+      container.innerHTML = '<span class="empty-msg">No medicines added yet.</span>';
+      return;
+    }
+    let html = "";
+    dynamicMedicines.forEach((m, index) => {
+      html += `
+        <div class="tag-item">
+          <span>${m.name} (₱${m.cost.toFixed(2)})</span>
+          <button type="button" class="btn-remove" onclick="removeMedicine(${index})">&times;</button>
+        </div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  function resetAll() {
+    dynamicProcedures = [];
+    dynamicMedicines = [];
+    renderProcedures();
+    renderMedicines();
+    document.getElementById('billOutput').style.display = 'none';
+  }
+
+  function renderHistoryTable() {
+    const tbody = document.getElementById("historyTableBody");
+    if (patientRecords.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #94a3b8; font-style: italic;">No records in history array yet.</td></tr>`;
+      return;
+    }
+
+    let html = "";
+    patientRecords.forEach((record, index) => {
+      html += `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${record.dateTime}</td>
+          <td><strong>${record.patientName}</strong></td>
+          <td>${record.selectedRoom.name} (${record.numDays}d)</td>
+          <td>${record.dynamicProcedures.length} item(s)</td>
+          <td>${record.dynamicMedicines.length} item(s)</td>
+          <td><strong>₱${record.grandTotal.toFixed(2)}</strong></td>
+          <td>
+            <button type="button" class="btn-view-rec" onclick="viewRecordSummary(${index})">View</button>
+            <button type="button" class="btn-del-rec" onclick="deleteRecord(${index})">Delete</button>
+          </td>
+        </tr>`;
+    });
+    tbody.innerHTML = html;
+  }
+
+  function viewRecordSummary(index) {
+    const record = patientRecords[index];
+    displayInvoiceSummary(record);
+    
+    let alertMsg = `====================================\n`;
+    alertMsg += `   HISTORICAL RECORD #${index + 1} SUMMARY   \n`;
+    alertMsg += `====================================\n`;
+    alertMsg += `Date: ${record.dateTime}\n`;
+    alertMsg += `Patient Name: ${record.patientName}\n\n`;
+    alertMsg += `Consultation Fee: ₱${record.consultationFee.toFixed(2)}\n`;
+    alertMsg += `Room Fee (${record.selectedRoom.name}, ${record.numDays} day/s): ₱${record.roomTotal.toFixed(2)}\n\n`;
+    
+    alertMsg += `PROCEDURES PERFORMED (${record.dynamicProcedures.length}):\n`;
+    if (record.dynamicProcedures.length > 0) {
+      record.dynamicProcedures.forEach((p, idx) => {
+        alertMsg += ` ${idx + 1}. ${p.name}: ₱${p.cost.toFixed(2)}\n`;
+      });
+    } else {
+      alertMsg += ` None\n`;
+    }
+    alertMsg += `Procedures Subtotal: ₱${record.proceduresTotal.toFixed(2)}\n\n`;
+
+    alertMsg += `MEDICINES ADMINISTERED (${record.dynamicMedicines.length}):\n`;
+    if (record.dynamicMedicines.length > 0) {
+      record.dynamicMedicines.forEach((m, idx) => {
+        alertMsg += ` ${idx + 1}. ${m.name}: ₱${m.cost.toFixed(2)}\n`;
+      });
+    } else {
+      alertMsg += ` None\n`;
+    }
+    alertMsg += `Medicines Subtotal: ₱${record.medicinesTotal.toFixed(2)}\n`;
+
+    alertMsg += `------------------------------------\n`;
+    alertMsg += `TOTAL CHARGES DUE: ₱${record.grandTotal.toFixed(2)}\n`;
+    alertMsg += `====================================`;
+
+    alert(alertMsg);
+  }
+
+  function deleteRecord(index) {
+    if (confirm("Are you sure you want to delete this record from history?")) {
+      patientRecords.splice(index, 1);
+      renderHistoryTable();
+      document.getElementById('billOutput').style.display = 'none';
+    }
+  }
+
+  function displayInvoiceSummary(record) {
+    const outputDiv = document.getElementById("billOutput");
+    
+    let html = `<h3>Invoice Summary for ${record.patientName} (${record.dateTime})</h3>`;
+    
+    html += `
+      <div class="bill-row">
+        <span>Consultation Fee</span>
+        <span>₱${record.consultationFee.toFixed(2)}</span>
+      </div>
+      <div class="bill-row">
+        <span>Room Fee (${record.selectedRoom.name} - ${record.numDays} day(s) @ ₱${record.selectedRoom.rate.toLocaleString()}/day)</span>
+        <span>₱${record.roomTotal.toFixed(2)}</span>
+      </div>`;
+
+    html += `
+      <div class="bill-row">
+        <span>Procedures Total (${record.dynamicProcedures.length} item/s)</span>
+        <span>₱${record.proceduresTotal.toFixed(2)}</span>
+      </div>`;
+    record.dynamicProcedures.forEach(p => {
+      html += `
+        <div class="bill-row bill-sub-item">
+          <span>• ${p.name}</span>
+          <span>₱${p.cost.toFixed(2)}</span>
+        </div>`;
+    });
+
+    html += `
+      <div class="bill-row">
+        <span>Medicines Total (${record.dynamicMedicines.length} item/s)</span>
+        <span>₱${record.medicinesTotal.toFixed(2)}</span>
+      </div>`;
+    record.dynamicMedicines.forEach(m => {
+      html += `
+        <div class="bill-row bill-sub-item">
+          <span>• ${m.name}</span>
+          <span>₱${m.cost.toFixed(2)}</span>
+        </div>`;
+    });
+
+    html += `
+      <div class="bill-row bill-total">
+        <span>Grand Total Due</span>
+        <span>₱${record.grandTotal.toFixed(2)}</span>
+      </div>`;
+
+    outputDiv.innerHTML = html;
+    outputDiv.style.display = "block";
+  }
+
+  document.getElementById("billingForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const patientName = document.getElementById("patientName").value.trim();
+    const consultationFee = parseFloat(document.getElementById("consultationFee").value) || 0;
+    const roomIndex = parseInt(document.getElementById("roomType").value);
+    const numDays = parseInt(document.getElementById("numDays").value) || 0;
+
+    const selectedRoom = roomTypes[roomIndex];
+    const roomTotal = selectedRoom.rate * numDays;
+
+    const proceduresTotal = dynamicProcedures.reduce((sum, item) => sum + item.cost, 0);
+    const medicinesTotal = dynamicMedicines.reduce((sum, item) => sum + item.cost, 0);
+
+    const grandTotal = consultationFee + roomTotal + proceduresTotal + medicinesTotal;
+    const now = new Date();
+    const dateTimeStr = now.toLocaleDateString() + " " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const newRecord = {
+      dateTime: dateTimeStr,
+      patientName: patientName,
+      consultationFee: consultationFee,
+      selectedRoom: selectedRoom,
+      numDays: numDays,
+      roomTotal: roomTotal,
+      dynamicProcedures: [...dynamicProcedures],
+      proceduresTotal: proceduresTotal,
+      dynamicMedicines: [...dynamicMedicines],
+      medicinesTotal: medicinesTotal,
+      grandTotal: grandTotal
+    };
+
+    patientRecords.push(newRecord);
+
+    renderHistoryTable();
+    viewRecordSummary(patientRecords.length - 1);
+  });
+</script>
+
+</body>
+</html>
